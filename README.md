@@ -8,26 +8,26 @@ This tutorial will show you how to convert a Java web application to use embedde
 * Basic Git knowledge, including an installed version of Git.
 * A Java web application. If you don't have one follow the first step to create an example. Otherwise skip that step.
 
-## Create an application if you don't already have one
+## 
 
-    :::term
-    $ mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp
-    ...
-    [INFO] Generating project in Interactive mode
-    Define value for property 'groupId': : com.example
-    Define value for property 'artifactId': : helloworld
-    
-(you can pick any groupId or artifactId). You now have a complete Java web app in the `helloworld` directory.
-
-If you want to skip the conversion steps and start with an app that already uses embedded tomcat you can clone the finished sample and then skip to the 'Deploy Your Application to Heroku' section:
+If you want to skip the creation steps you can clone the finished sample and then skip to the 'Deploy Your Application to Heroku' section:
 
     :::term
     $ git clone git@github.com:heroku/devcenter-embedded-tomcat.git
 
-## Add tomcat  dependencies
+## Create your pom.xml
 
-In your pom.xml you'll need to add the embedded Tomcat dependencies:
+Create a folder to hold your app and create a file called pom.xml in the root of that folder with the following contents:
 
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+      <groupId>com.heroku.sample</groupId>
+      <artifactId>embeddedTomcatSample</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <name>embeddedTomcatSample Maven Webapp</name>
+      <url>http://maven.apache.org</url>
+      <dependencies>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
@@ -58,16 +58,10 @@ In your pom.xml you'll need to add the embedded Tomcat dependencies:
             <artifactId>tomcat-jsp-api</artifactId>
             <version>7.0.22</version>
         </dependency>
-
-If you're not using jsp pages you don't need the last 3 entries, just the first 3.
-
-Your application is probably being packaged as a war. We want to package this as an executable jar file so we'll need to remove the packaging element:
-
-    <packaging>war</packaging>
-
-Add the appassembler plugin to your pom.xml:
-
-            <!-- The maven app assembler plugin will generate a script that sets up the classpath and runs your project -->
+      </dependencies>
+      <build>
+        <finalName>embeddedTomcatSample</finalName>
+        <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
@@ -90,39 +84,96 @@ Add the appassembler plugin to your pom.xml:
                     </execution>
                 </executions>
             </plugin>
+        </plugins>
+      </build>
+    </project>
+    
+This pom.xml defines the dependencies that you'll need to run Tomcat in an embedded mode. 
 
-The appassembler plugin generates a launch script that automatically sets up your classpath and calls your main method (created below) to launch your application.
+The last 3 entries are only required for applications that use JSP files. If you use this technique for an application that doesn't use JSPs then you can just include the first 3 dependencies.
+
+There is also a single plugin defined. The appassembler plugin generates a launch script that automatically sets up your classpath and calls your main method (created below) to launch your application.
 
 ## Add a Launcher Class
 
-Create a file called Main.java in your src/main/java directory and put the following in it:
+Create a file called Main.java in your src/main/java/launch directory and put the following in it:
 
+    :::java
+    package launch;
+    
     import java.io.File;
     import org.apache.catalina.startup.Tomcat;
 
     public class Main {
     
         public static void main(String[] args) throws Exception {
-	
-	        String webappDirLocation = "src/main/webapp/";
-	        Tomcat tomcat = new Tomcat();
-	
-	        //The port that we should run on can be set into an environment variable
-	        //Look for that variable and default to 8080 if it isn't there.
-	        String webPort = System.getenv("PORT");
-	        if(webPort == null || webPort.isEmpty()) {
-	            webPort = "8080";
-	        }
-	
-	        tomcat.setPort(Integer.valueOf(webPort));
-	
-	        tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-	        System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
-	
-	        tomcat.start();
-	        tomcat.getServer().await();  
+    
+            String webappDirLocation = "src/main/webapp/";
+            Tomcat tomcat = new Tomcat();
+    
+            //The port that we should run on can be set into an environment variable
+            //Look for that variable and default to 8080 if it isn't there.
+            String webPort = System.getenv("PORT");
+            if(webPort == null || webPort.isEmpty()) {
+                webPort = "8080";
+            }
+    
+            tomcat.setPort(Integer.valueOf(webPort));
+    
+            tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+            System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
+    
+            tomcat.start();
+            tomcat.getServer().await();  
         }
     }
+    
+## Add a Servlet
+
+Create a file called HelloServlet.java in the src/main/java/servlet directory and put the following into it:
+
+    :::java
+    package servlet;
+    
+    import java.io.IOException;
+    
+    import javax.servlet.ServletException;
+    import javax.servlet.ServletOutputStream;
+    import javax.servlet.annotation.WebServlet;
+    import javax.servlet.http.HttpServlet;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    
+    @WebServlet(
+            name = "MyServlet", 
+            urlPatterns = {"/hello"}
+        )
+    public class HelloServlet extends HttpServlet {
+    
+        private static final long serialVersionUID = 1L;
+    
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                throws ServletException, IOException {
+            ServletOutputStream out = resp.getOutputStream();
+            out.write("hello heroku".getBytes());
+            out.flush();
+            out.close();
+        }
+        
+    }
+    
+This is simple Servlet that uses annotations to configure itself.
+
+## Add a JSP
+
+Create a file called index.jsp in the src/main/webapp directory:
+
+    <html>
+        <body>
+            <h2>Hello Heroku!</h2>
+        </body>
+    </html>
  
 ## Run your Application
 
@@ -136,7 +187,7 @@ And then simply run the script:
     :::term
     $ sh target/bin/webapp
 
-That's it. Your application should start up on port 8080 and is now more portable and erosion resistant!
+That's it. Your application should start up on port 8080. You can see the JSP at http://localhost:8080 and the servlet and http://localhost:8080/hello
 
 # Deploy your Application to Heroku
 
