@@ -1,6 +1,6 @@
-# Convert a Java Web Application to Use Embedded Tomcat
+# Create a Java Web Application using Embedded Tomcat
 
-This tutorial will show you how to convert a Java web application to use embedded Tomcat.
+This tutorial will show you how to create a simple Java web application using embedded Tomcat.
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ This tutorial will show you how to convert a Java web application to use embedde
 * Basic Git knowledge, including an installed version of Git.
 * A Java web application. If you don't have one follow the first step to create an example. Otherwise skip that step.
 
-## 
+## Skip The Application Creation
 
 If you want to skip the creation steps you can clone the finished sample and then skip to the 'Deploy Your Application to Heroku' section:
 
