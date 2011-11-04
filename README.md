@@ -70,7 +70,7 @@ Create a folder to hold your app and create a file called pom.xml in the root of
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>Main</mainClass>
+                            <mainClass>launch.Main</mainClass>
                             <name>webapp</name>
                         </program>
                     </programs>
