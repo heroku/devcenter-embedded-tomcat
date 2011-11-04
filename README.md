@@ -150,8 +150,6 @@ Create a file called HelloServlet.java in the src/main/java/servlet directory an
         )
     public class HelloServlet extends HttpServlet {
     
-        private static final long serialVersionUID = 1L;
-    
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                 throws ServletException, IOException {
