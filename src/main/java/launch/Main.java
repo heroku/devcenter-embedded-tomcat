@@ -1,6 +1,10 @@
 package launch;
 import java.io.File;
+
+import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
+
+import servlet.HelloServlet;
 
 public class Main {
 
@@ -18,7 +22,10 @@ public class Main {
 
         tomcat.setPort(Integer.valueOf(webPort));
 
-        tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        Context ctx = tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        //the context object can be used to configure your server with settings that would normally go in your context.xml
+        //ctx.setUseHttpOnly(true);
+        
         System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
 
         tomcat.start();
