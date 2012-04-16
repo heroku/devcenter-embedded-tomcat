@@ -182,8 +182,15 @@ To generate the start scripts simply run:
 
 And then simply run the script:
 
+On Mac / Linux:
+
     :::term
     $ sh target/bin/webapp
+
+On Windows:
+
+    :::term
+    $ target\bin\webapp.bat
 
 That's it. Your application should start up on port 8080. You can see the JSP at http://localhost:8080 and the servlet and http://localhost:8080/hello
 
