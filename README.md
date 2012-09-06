@@ -196,6 +196,16 @@ You declare how you want your application executed in `Procfile` in the project 
     :::term
     web: sh target/bin/webapp
 
+## Optionally Choose a JDK
+By default, OpenJDK 1.6 is installed with your app. However, you can choose to use a newer JDK by specifying `java.runtime.version=1.7` in the `system.properties` file.
+
+Here's what a `system.properties` file looks like:
+
+    :::term
+    java.runtime.version=1.7
+
+You can specify 1.6, 1.7, or 1.8 (1.8 is in beta) for Java 6, 7, or 8 (with lambdas), respectively.
+
 ## Deploy to Heroku
 
 Commit your changes to Git:
