@@ -39,7 +39,7 @@ public class ConeccionBD {
             JOptionPane.showMessageDialog(null, ex, "Error3 en la Conexión con la BD " + ex.getMessage(), JOptionPane.ERROR_MESSAGE);
             conexion = null;
         }
-        return null;
+        return conexion;
     }
 }
    
