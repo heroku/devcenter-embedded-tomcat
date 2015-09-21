@@ -20,7 +20,7 @@ public class GestorBD {
 
     public void RegistrarUsuario(UsuarioRequest usuario) {
 
-        String sql = "insert into FT_Usuario (usuario,contrasenha,nombre,email) values(?,?,?,?)";
+        String sql = "insert into ft_usuario (usuario,contrasenha,nombre,email) values(?,?,?,?)";
 
         try {
 
