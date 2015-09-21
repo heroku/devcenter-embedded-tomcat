@@ -23,37 +23,36 @@ public class UserRegistroServlet {
             name = "UsuarioRegistro",
             urlPatterns = {"/usuario/registro"}
     )
-    public class TestServlet extends HttpServlet {
-
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                throws ServletException, IOException {
-            ServletOutputStream out = resp.getOutputStream();
-            out.write("hola heroku de shit".getBytes());
-            out.flush();
-            out.close();
-        }
-
-        @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
-                throws ServletException, IOException {
-
-            GestorBD gestor = new GestorBD();
-
-            InputStream is = request.getInputStream();
-            Reader reader = new InputStreamReader(is, "utf-8");
-
-            //UsuarioRequest ususario=new  Gson().fromJson(reader,Usuario.class);
-            UsuarioRequest request1 = new UsuarioRequest();
-            request1.setNombre("Pepe");
-            request1.setEmail("lalala@gmail.com");
-            request1.setUsuario("p123");
-            request1.setPass("hola");
-
-            gestor.RegistrarUsuario(request1);
 
 
-        }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        ServletOutputStream out = resp.getOutputStream();
+        out.write("hola heroku de shit".getBytes());
+        out.flush();
+        out.close();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        GestorBD gestor = new GestorBD();
+
+        InputStream is = request.getInputStream();
+        Reader reader = new InputStreamReader(is, "utf-8");
+
+        //UsuarioRequest ususario=new  Gson().fromJson(reader,Usuario.class);
+        UsuarioRequest request1 = new UsuarioRequest();
+        request1.setNombre("Pepe");
+        request1.setEmail("lalala@gmail.com");
+        request1.setUsuario("p123");
+        request1.setPass("hola");
+
+        gestor.RegistrarUsuario(request1);
+
 
     }
+
 }
