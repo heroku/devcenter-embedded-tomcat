@@ -13,10 +13,7 @@ import dto.UsuarioRequest;
  * @author GARY
  */
 public class GestorBD {
-
-    public ConeccionBD conexion = new ConeccionBD();
-
-    //Metodos de BD
+        //Metodos de BD
 
     public void RegistrarUsuario(UsuarioRequest usuario) {
 
