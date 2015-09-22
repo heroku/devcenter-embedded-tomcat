@@ -1,6 +1,8 @@
 package servlet;
 
-import dto.UsuarioRequest;
+import com.google.gson.Gson;
+import dto.UserRegistro.UsuarioRequest;
+import dto.UserRegistro.UsuarioResponse;
 import gestores.GestorBD;
 
 import javax.servlet.ServletException;
@@ -10,9 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 @WebServlet(
         name = "UsuarioRegistro",
@@ -33,27 +32,29 @@ public class UserRegistroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("application/json");
+        Gson gson = new Gson();
         GestorBD gestor = new GestorBD();
 
-        InputStream is = request.getInputStream();
-        Reader reader = new InputStreamReader(is, "utf-8");
+        UsuarioRequest usuarioRequest = gson.fromJson(request.getReader(), UsuarioRequest.class);
 
-        //UsuarioRequest ususario=new  Gson().fromJson(reader,Usuario.class);
         UsuarioRequest request1 = new UsuarioRequest();
         request1.setNombre("ESTO LO INICIO DESDE CELULAR");
         request1.setEmail("lalala1212@gmail.com");
         request1.setUsuario("p1231212");
         request1.setPass("hola");
 
-        boolean completo = gestor.RegistrarUsuario(request1);
 
-        ServletOutputStream out = response.getOutputStream();
-        out.write(("rpta:"+completo).getBytes());
-        out.flush();
-        out.close();
+        UsuarioResponse usuarioResponse = new UsuarioResponse();
+        if (gestor.RegistrarUsuario(usuarioRequest)) {
+            usuarioResponse.setMsgStatus("Ok");
+        } else {
+            usuarioResponse.setMsgError("Error!!");
+        }
 
+        response.getOutputStream().print(gson.toJson(usuarioResponse));
+        response.getOutputStream().flush();
 
     }
-    
+
 }

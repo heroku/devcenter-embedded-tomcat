@@ -1,4 +1,4 @@
-package dto;
+package dto.UserRegistro;
 
 import java.io.Serializable;
 
