@@ -41,9 +41,9 @@ public class UserRegistroServlet extends HttpServlet {
 
         //UsuarioRequest ususario=new  Gson().fromJson(reader,Usuario.class);
         UsuarioRequest request1 = new UsuarioRequest();
-        request1.setNombre("Pepe");
-        request1.setEmail("lalala@gmail.com");
-        request1.setUsuario("p123");
+        request1.setNombre("ESTO LO INICIO DESDE CELULAR");
+        request1.setEmail("lalala1212@gmail.com");
+        request1.setUsuario("p1231212");
         request1.setPass("hola");
 
         boolean completo = gestor.RegistrarUsuario(request1);
