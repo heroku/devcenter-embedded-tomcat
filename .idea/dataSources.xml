@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="34874604">
+  <component name="DataSourceManagerImpl" format="xml" hash="4070983207">
     <data-source source="LOCAL" name="Steph Heroku" uuid="c796d8c6-fab8-4a88-8cdd-dfa63bdbf5e6">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>

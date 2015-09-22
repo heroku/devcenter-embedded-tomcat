@@ -32,26 +32,14 @@ public class UserRegistroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("application/json");
         Gson gson = new Gson();
         GestorBD gestor = new GestorBD();
 
         UsuarioRequest usuarioRequest = gson.fromJson(request.getReader(), UsuarioRequest.class);
 
-        /*
-        UsuarioRequest request1 = new UsuarioRequest();
-        request1.setNombre("ESTO LO INICIO DESDE CELULAR");
-        request1.setEmail("lalala1212@gmail.com");
-        request1.setUsuario("p1231212");
-        request1.setPass("hola");
-*/
-
-        UsuarioResponse usuarioResponse = new UsuarioResponse();
-        if (gestor.RegistrarUsuario(usuarioRequest)) {
-            usuarioResponse.setMsgStatus("Ok");
-        } else {
-            usuarioResponse.setMsgError("Error!!");
-        }
+        UsuarioResponse usuarioResponse = gestor.RegistrarUsuario(usuarioRequest);
 
         response.getOutputStream().print(gson.toJson(usuarioResponse));
         response.getOutputStream().flush();

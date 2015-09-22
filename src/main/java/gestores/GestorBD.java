@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import dto.UserRegistro.UsuarioRequest;
+import dto.UserRegistro.UsuarioResponse;
 
 
 /**
@@ -13,13 +14,17 @@ import dto.UserRegistro.UsuarioRequest;
 public class GestorBD {
     //Metodos de BD
 
-    public boolean RegistrarUsuario(UsuarioRequest usuario) {
+    public UsuarioResponse RegistrarUsuario(UsuarioRequest usuario) {
 
-        String sql = "insert into ft_usuario (usuario,pass,nombre,email) values(?,?,?,?)";
+        UsuarioResponse response = new UsuarioResponse();
+
+        String sql = "INSERT INTO ft_usuario (usuario,pass,nombre,email) VALUES(?,?,?,?)";
 
         try {
-
             Connection conn = ConeccionBD.GetConnection();
+            if(conn==null){
+                throw  new ClassNotFoundException();
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, usuario.getUsuario());
             ps.setString(2, usuario.getPass());
@@ -29,11 +34,24 @@ public class GestorBD {
             int confirmacion = ps.executeUpdate();
 
             if (confirmacion == 1) {
-                return true;
+                response.setMsgStatus("Usuario Registrado");
+                response.setMsgError(null);
+            } else {
+                response.setMsgStatus("Error");
+                response.setMsgError("Hubo un problema al crear usuario, verifique los campos de datos.");
+                //problema hecho por el usuario
             }
         } catch (SQLException ex) {
+            response.setMsgStatus("Error");
+            response.setMsgError("Error al registrar el usuario.");
+            //error de sintaxis de sql
+            ex.printStackTrace();
+        }catch (ClassNotFoundException ex){
+            response.setMsgStatus("Error");
+            response.setMsgError("Error al establecer conexión con base de datos.");
+            //error de sintaxis de sql
             ex.printStackTrace();
         }
-        return false;
+        return response;
     }
 }
