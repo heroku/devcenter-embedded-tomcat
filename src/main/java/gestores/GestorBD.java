@@ -17,7 +17,7 @@ public class GestorBD {
 
     public boolean RegistrarUsuario(UsuarioRequest usuario) {
 
-        String sql = "insert into ft_usuario (usuario,contrasenha,nombre,email) values(?,?,?,?)";
+        String sql = "insert into ft_usuario (usuario,pass,nombre,email) values(?,?,?,?)";
 
         try {
 
