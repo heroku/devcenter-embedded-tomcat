@@ -43,7 +43,7 @@ public class GestorBD {
             }
         } catch (SQLException ex) {
             response.setMsgStatus("Error");
-            response.setMsgError("Error al registrar el usuario. " + ex.getSQLState());
+            response.setMsgError("Error al registrar el usuario. " + ex.getCause().getMessage());
             //error de sintaxis de sql
             ex.printStackTrace();
         }catch (ClassNotFoundException ex){
