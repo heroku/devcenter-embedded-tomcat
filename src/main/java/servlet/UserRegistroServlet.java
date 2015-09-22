@@ -46,7 +46,14 @@ public class UserRegistroServlet extends HttpServlet {
         request1.setUsuario("p123");
         request1.setPass("hola");
 
-        gestor.RegistrarUsuario(request1);
+        boolean completo = gestor.RegistrarUsuario(request1);
+
+        ServletOutputStream out = response.getOutputStream();
+        out.write(("rpta:"+completo).getBytes());
+        out.flush();
+        out.close();
+
+
     }
     
 }

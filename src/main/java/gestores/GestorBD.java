@@ -15,7 +15,7 @@ import dto.UsuarioRequest;
 public class GestorBD {
     //Metodos de BD
 
-    public void RegistrarUsuario(UsuarioRequest usuario) {
+    public boolean RegistrarUsuario(UsuarioRequest usuario) {
 
         String sql = "insert into ft_usuario (usuario,contrasenha,nombre,email) values(?,?,?,?)";
 
@@ -31,10 +31,11 @@ public class GestorBD {
             int confirmacion = ps.executeUpdate();
 
             if (confirmacion == 1) {
-                System.out.println("Se ejecuto la sentencia correctamente");
+                return true;
             }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
+        return false;
     }
 }
