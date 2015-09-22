@@ -41,10 +41,19 @@
         <artifactId>tomcat-jsp-api</artifactId>
         <version>${tomcat.version}</version>
     </dependency>
+      <!--JDBC Tomcat-->
+      <!--
       <dependency>
           <groupId>org.apache.tomcat</groupId>
           <artifactId>tomcat-jdbc</artifactId>
           <version>8.0.26</version>
+      </dependency>
+      -->
+      <!-- JDBC -->
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.36</version>
       </dependency>
   </dependencies>
   <build>

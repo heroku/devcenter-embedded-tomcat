@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class ConeccionBD {
 
     public static Connection GetConnection() {
-        Connection conexion = null;
+        Connection conexion;
         try {
 
             URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));

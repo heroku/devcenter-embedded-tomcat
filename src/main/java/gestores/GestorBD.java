@@ -13,7 +13,7 @@ import dto.UsuarioRequest;
  * @author GARY
  */
 public class GestorBD {
-        //Metodos de BD
+    //Metodos de BD
 
     public void RegistrarUsuario(UsuarioRequest usuario) {
 
@@ -31,19 +31,10 @@ public class GestorBD {
             int confirmacion = ps.executeUpdate();
 
             if (confirmacion == 1) {
-
                 System.out.println("Se ejecuto la sentencia correctamente");
-
             }
-
         } catch (SQLException ex) {
-
             System.out.println(ex.getMessage());
-
         }
-
-
     }
-
-
 }
