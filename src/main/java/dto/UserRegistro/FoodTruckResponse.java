@@ -11,13 +11,15 @@ public class FoodTruckResponse {
     private String horarInicio;
     private String horarFin;
     private String fotoPerfil;
-    private List<EventoResponse> ventos;
+    private List<EventoResponse> eventos;
     private List<ProductoResponse> productos;
     private List<ComentarioRespone> comentarios;
+    private List<CuponResponse> cupones;
     private String email;
     private String password;
     private int puntaje;
     private int pustoRanking;
+    private String condicion;
 
     public FoodTruckResponse() {
     }
@@ -78,12 +80,12 @@ public class FoodTruckResponse {
         this.fotoPerfil = fotoPerfil;
     }
 
-    public List<EventoResponse> getVentos() {
-        return ventos;
+    public List<EventoResponse> getEventos() {
+        return eventos;
     }
 
-    public void setVentos(List<EventoResponse> ventos) {
-        this.ventos = ventos;
+    public void setEventos(List<EventoResponse> eventos) {
+        this.eventos = eventos;
     }
 
     public List<ProductoResponse> getProductos() {
@@ -133,5 +135,23 @@ public class FoodTruckResponse {
     public void setPustoRanking(int pustoRanking) {
         this.pustoRanking = pustoRanking;
     }
+
+    public List<CuponResponse> getCupones() {
+        return cupones;
+    }
+
+    public void setCupones(List<CuponResponse> cupones) {
+        this.cupones = cupones;
+    }
+
+    public String getCondicion() {
+        return condicion;
+    }
+
+    public void setCondicion(String condicion) {
+        this.condicion = condicion;
+    }
+    
+    
 
 }

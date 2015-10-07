@@ -129,7 +129,7 @@ public class GestorBD {
     
     public void obtenerFoodTruck(FoodTruckResponse foodtruck) {
 
-        String sql = "";
+        String sql = "Select nombre,direccion,hora_inicio,hora_fin,email,condicion from ft_foodtruck";
 
         try {
 
@@ -139,9 +139,15 @@ public class GestorBD {
             ResultSet res = pes.executeQuery();
 
             while (res.next()) {
-                
-                
-
+            
+            foodtruck.setComentarios(obtenerComentarios(foodtruck.getIdFoodTruck()));
+            foodtruck.setCupones(obtenerCupones(foodtruck.getIdFoodTruck()));
+            foodtruck.setDireccion(res.getString("direccion"));
+            foodtruck.setHorarInicio(res.getString("hora_inicio"));
+            foodtruck.setHorarFin(res.getString("hora_fin"));
+            foodtruck.setEmail(res.getString("email"));
+            foodtruck.setCondicion(res.getString("condicion"));
+                        
             }
 
         } catch (SQLException ex) {
