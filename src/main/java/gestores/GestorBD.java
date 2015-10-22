@@ -1,5 +1,6 @@
 package gestores;
 
+import dto.UserRegistro.ClienteResponse;
 import dto.UserRegistro.ComentarioRespone;
 import dto.UserRegistro.CuponResponse;
 import dto.UserRegistro.FoodTruckResponse;
@@ -217,6 +218,43 @@ public class GestorBD {
 
         return cupones;
 
+    }
+    
+    
+    public void  ingresarGustos(List<GustosResponse> gustos,ClienteResponse cliente){
+   
+    String sql="Insert into clientexcategoria(iccliente,idcategoria) values(?,?)";
+    
+
+        try {
+            
+            Connection conn=ConeccionBD.GetConnection();
+            PreparedStatement pes;
+            pes=conn.prepareStatement(sql);
+       
+         for(GustosResponse categoria:gustos){
+             
+             pes.setInt(1,categoria.getIdCategoria());
+             pes.setInt(2,cliente.getIdCliente());
+             int confirmacion=pes.executeUpdate();
+         
+         }                           
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+        
+    
+    }
+    
+    public ClienteResponse loginCliente(){
+    ClienteResponse cliente=new ClienteResponse();
+        
+    
+    
+        
+    return  cliente;
     }
 
     
