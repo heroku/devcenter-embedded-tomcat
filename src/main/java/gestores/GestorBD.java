@@ -34,12 +34,15 @@ public class GestorBD {
     private GestorBD(){};   
     
 //Metodos de BD
+    
+    
+    
 
     public UsuarioResponse RegistrarUsuario(UsuarioRequest usuario) {
 
         UsuarioResponse response = new UsuarioResponse();
 
-        String sql = "INSERT INTO ft_usuario (usuario,pass,nombre,email) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO cliente (usuario,pass,nombres,email) VALUES(?,?,?,?)";
 
         try {
             Connection conn = ConeccionBD.GetConnection();
