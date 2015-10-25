@@ -6,15 +6,13 @@ public class UsuarioResponse implements Serializable{
 
     private String msgStatus;
     private String msgError;
-    private String urlCallback;
 
     public UsuarioResponse() {
     }
 
-    public UsuarioResponse(String msgStatus, String msgError, String urlCallback) {
+    public UsuarioResponse(String msgStatus, String msgError) {
         this.msgStatus = msgStatus;
         this.msgError = msgError;
-        this.urlCallback = urlCallback;
     }
 
     public String getMsgStatus() {
@@ -33,11 +31,5 @@ public class UsuarioResponse implements Serializable{
         this.msgError = msgError;
     }
 
-    public String getUrlCallback() {
-        return urlCallback;
-    }
 
-    public void setUrlCallback(String urlCallback) {
-        this.urlCallback = urlCallback;
-    }
 }

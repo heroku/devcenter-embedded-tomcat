@@ -37,7 +37,7 @@ public class GestorBD {
     
     public ClienteResponse VerificarLogin(String user, String pass) {
         String sql = "Select id_Cliente from cliente where usuario=? and password=?";
-        ClienteResponse cliente = new ClienteResponse();
+        ClienteResponse cliente;
         try {
 
             Connection conn = ConeccionBD.GetConnection();
@@ -46,13 +46,15 @@ public class GestorBD {
             pes.setString(1, user);
             pes.setString(2, pass);
             ResultSet res = pes.executeQuery();
+            cliente=new ClienteResponse();
 
             while (res.next()) {
                 cliente.setId_Cliente(res.getInt("id_Cliente"));
             }
+            
 
         } catch (SQLException ex) {
-            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+             cliente=new ClienteResponse();
         }
 
         return cliente;

@@ -35,6 +35,7 @@ public class IngresarGustosServlet extends HttpServlet{
         HttpSession session=(HttpSession)request.getSession();        
         ClienteResponse cliente=(ClienteResponse)session.getAttribute("cliente");
         gestor.ingresarGustos(gustos, cliente);
+        
 
         
     }
