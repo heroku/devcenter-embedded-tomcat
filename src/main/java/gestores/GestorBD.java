@@ -42,7 +42,7 @@ public class GestorBD {
 
         UsuarioResponse response = new UsuarioResponse();
 
-        String sql = "INSERT INTO cliente (usuario,pass,nombres,email) VALUES(?,?,?,?)";
+        String sql = "insert into cliente (usuario,pass,nombres,email) VALUES(?,?,?,?)";
 
         try {
             Connection conn = ConeccionBD.GetConnection();
