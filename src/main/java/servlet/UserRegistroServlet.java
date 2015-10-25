@@ -35,7 +35,7 @@ public class UserRegistroServlet extends HttpServlet {
 
         response.setContentType("application/json");
         Gson gson = new Gson();
-        GestorBD gestor = new GestorBD();
+        GestorBD gestor = GestorBD.getInstance();
 
         UsuarioRequest usuarioRequest = gson.fromJson(request.getReader(), UsuarioRequest.class);
 

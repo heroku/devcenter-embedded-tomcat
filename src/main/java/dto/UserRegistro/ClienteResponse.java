@@ -2,39 +2,42 @@
 
 package dto.UserRegistro;
 
+import java.util.List;
+
 public class ClienteResponse {
 
-    private int idCliente;
-    private String nombre;
+    private int id_Cliente;
+    private String nombres;
     private String usuario;
     private String password;
     private String email;
+    private List<GustosResponse> gustos;
 
     public ClienteResponse() {
     }
 
-    public ClienteResponse(int idCliente, String nombre, String usuario, String password, String email) {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
+    public ClienteResponse(int id_Cliente, String nombres, String usuario, String password, String email) {
+        this.id_Cliente = id_Cliente;
+        this.nombres = nombres;
         this.usuario = usuario;
         this.password = password;
         this.email = email;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public int getId_Cliente() {
+        return id_Cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setId_Cliente(int id_Cliente) {
+        this.id_Cliente = id_Cliente;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
     public String getUsuario() {
@@ -61,5 +64,15 @@ public class ClienteResponse {
         this.email = email;
     }
 
+    public List<GustosResponse> getGustos() {
+        return gustos;
+    }
+
+    public void setGustos(List<GustosResponse> gustos) {
+        this.gustos = gustos;
+    }
+    
+    
+    
 
 }
