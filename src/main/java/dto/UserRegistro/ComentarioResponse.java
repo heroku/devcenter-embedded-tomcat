@@ -3,17 +3,17 @@ package dto.UserRegistro;
 
 import java.util.Date;
 
-public class ComentarioRespone {
+public class ComentarioResponse {
 
     private int idfoodtruck;
     private String comentario;
     private int idCliente;
     private Date fecha;
 
-    public ComentarioRespone() {
+    public ComentarioResponse() {
     }
 
-    public ComentarioRespone(int idfoodtruck, String comentario, int idCliente, Date fecha) {
+    public ComentarioResponse(int idfoodtruck, String comentario, int idCliente, Date fecha) {
         this.idfoodtruck = idfoodtruck;
         this.comentario = comentario;
         this.idCliente = idCliente;

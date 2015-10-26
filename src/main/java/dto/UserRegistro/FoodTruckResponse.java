@@ -13,7 +13,7 @@ public class FoodTruckResponse {
     private String fotoPerfil;
     private List<EventoResponse> eventos;
     private List<ProductoResponse> productos;
-    private List<ComentarioRespone> comentarios;
+    private List<ComentarioResponse> comentarios;
     private List<CuponResponse> cupones;
     private String email;
     private String password;
@@ -96,11 +96,11 @@ public class FoodTruckResponse {
         this.productos = productos;
     }
 
-    public List<ComentarioRespone> getComentarios() {
+    public List<ComentarioResponse> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(List<ComentarioRespone> comentarios) {
+    public void setComentarios(List<ComentarioResponse> comentarios) {
         this.comentarios = comentarios;
     }
 

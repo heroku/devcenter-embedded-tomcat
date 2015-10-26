@@ -1,7 +1,7 @@
 package gestores;
 
 import dto.UserRegistro.ClienteResponse;
-import dto.UserRegistro.ComentarioRespone;
+import dto.UserRegistro.ComentarioResponse;
 import dto.UserRegistro.CuponResponse;
 import dto.UserRegistro.FoodTruckResponse;
 import dto.UserRegistro.GustosResponse;
@@ -218,12 +218,12 @@ public class GestorBD {
     }
 
   //Algunos Medotos de Apoyo 
-    public List<ComentarioRespone> obtenerComentarios(int idFoodtruck) {
+    public List<ComentarioResponse> obtenerComentarios(int idFoodtruck) {
 
-        ComentarioRespone comentario = new ComentarioRespone();
+        ComentarioResponse comentario = new ComentarioResponse();
         comentario.setIdfoodtruck(idFoodtruck);
-        List<ComentarioRespone> comentarios = new ArrayList<ComentarioRespone>();
-        String sql = "Select c.descripcion,f.fechacomentario,f.id_cliente from comentarioxft  f inner join comentario c  on f.id_comentario=c.id_comentariowhere f.id_foodtruck=?";
+        List<ComentarioResponse> comentarios = new ArrayList<ComentarioResponse>();
+        String sql = "Select c.descripcion,f.fechacomentario,f.id_cliente from comentarioxft  f inner join comentario c  on f.id_comentario=c.id_comentario where f.id_foodtruck=?";
 
         try {
 
