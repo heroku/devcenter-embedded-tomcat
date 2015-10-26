@@ -5,7 +5,12 @@
  */
 package servlet;
 
+import adapters.login.LoginAdapter;
+import adapters.login.LoginFacebookAdapter;
+import com.google.gson.Gson;
+import dto.UserRegistro.UsuarioResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet(
-name = "LoginServlet",
-urlPatterns = "/usuario/login"
+name = "LoginSocialServlet",
+urlPatterns = "/login-social"
 )
 
 
@@ -25,6 +30,25 @@ public class LoginSocialServlet extends HttpServlet{
  @Override       
  protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+     
+     LoginAdapter loginFacebook= new LoginFacebookAdapter();
+     UsuarioResponse usuario;
+        try {
+        
+            String urlCallback = loginFacebook.login(request);
+            usuario=new UsuarioResponse("OK","", urlCallback);
+
+        } catch (Exception ex) {
+            usuario=new UsuarioResponse("Exception",ex.getMessage(),null);
+               
+        }
+        
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.print(new Gson().toJson(usuario));
+     
+     
+     
      
      
  
