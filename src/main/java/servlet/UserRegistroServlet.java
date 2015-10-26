@@ -1,6 +1,7 @@
 package servlet;
 
 import com.google.gson.Gson;
+import dto.UserRegistro.ClienteResponse;
 import dto.UserRegistro.UsuarioRequest;
 import dto.UserRegistro.UsuarioResponse;
 import gestores.GestorBD;
@@ -35,11 +36,12 @@ public class UserRegistroServlet extends HttpServlet {
 
         response.setContentType("application/json");
         Gson gson = new Gson();
-        GestorBD gestor = new GestorBD();
+        GestorBD gestor = GestorBD.getInstance();
 
         UsuarioRequest usuarioRequest = gson.fromJson(request.getReader(), UsuarioRequest.class);
 
         UsuarioResponse usuarioResponse = gestor.RegistrarUsuario(usuarioRequest);
+        
 
         response.getOutputStream().print(gson.toJson(usuarioResponse));
         response.getOutputStream().flush();
