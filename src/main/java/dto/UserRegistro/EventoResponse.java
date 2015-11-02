@@ -5,18 +5,22 @@
  */
 package dto.UserRegistro;
 
+import java.util.Date;
+
 public class EventoResponse {
 
     private int idEvento;
     private String nombre;
     private String Descripcion;
     private String url;
+    private Date fechaPublicacion;
 
-    public EventoResponse(int idEvento, String nombre, String Descripcion, String url) {
+    public EventoResponse(int idEvento, String nombre, String Descripcion, String url,Date fechaPublicacion) {
         this.idEvento = idEvento;
         this.nombre = nombre;
         this.Descripcion = Descripcion;
         this.url = url;
+        this.fechaPublicacion=fechaPublicacion;
     }
 
     public EventoResponse() {
@@ -53,5 +57,16 @@ public class EventoResponse {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public Date getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(Date fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
+    }
+    
+    
+    
 
 }

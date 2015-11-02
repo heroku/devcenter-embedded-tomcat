@@ -3,8 +3,10 @@ package gestores;
 import dto.UserRegistro.ClienteResponse;
 import dto.UserRegistro.ComentarioResponse;
 import dto.UserRegistro.CuponResponse;
+import dto.UserRegistro.EventoResponse;
 import dto.UserRegistro.FoodTruckResponse;
 import dto.UserRegistro.GustosResponse;
+import dto.UserRegistro.ProductoResponse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -178,11 +180,14 @@ public class GestorBD {
 
                 foodtruck.setComentarios(obtenerComentarios(foodtruck.getIdFoodTruck()));
                 foodtruck.setCupones(obtenerCupones(foodtruck.getIdFoodTruck()));
+                foodtruck.setProductos(obtenerProductos(foodtruck.getIdFoodTruck()));
+                foodtruck.setEventos(obtenerEventos(foodtruck.getIdFoodTruck()));                
                 foodtruck.setNombre(res.getString("nombre"));
                 foodtruck.setDireccion(res.getString("direccion"));
                 foodtruck.setHorarInicio(res.getString("hora_inicio"));
                 foodtruck.setHorarFin(res.getString("hora_fin"));
                 foodtruck.setEmail(res.getString("email"));
+                
             //foodtruck.setCondicion(res.getString("condicion"));
 
             }
@@ -193,7 +198,7 @@ public class GestorBD {
 
     }
 
-    public void mostrarPerfil(ClienteResponse cliente) {
+    public void mostrarPerfilCliente(ClienteResponse cliente) {
 
         String sql = "Select nombres,email from cliente where id_cliente=?";
 
@@ -334,5 +339,84 @@ public class GestorBD {
 
         return gustos;
     }
+    
+    
+    
+       public List<EventoResponse> obtenerEventos(int idFoodtruck) {
 
+        EventoResponse evento = new EventoResponse();
+       
+        List<EventoResponse> eventos = new ArrayList<EventoResponse>();
+        String sql = "Select e.idEvento,f.fechaPublicacion,e.nombre,e.Descripcion,e.url from eventoxft f inner join  evento e  on e.idEvento=f.idEvento where f.idEvento=?";
+
+        try {
+
+            Connection conn = ConeccionBD.GetConnection();
+            PreparedStatement pes;
+            pes = conn.prepareStatement(sql);
+            pes.setInt(1, idFoodtruck);
+            ResultSet res = pes.executeQuery();
+
+            while (res.next()) {
+             evento.setNombre(res.getString("nombre"));
+             evento.setDescripcion(res.getString("Descripcion"));
+             evento.setUrl(res.getString("url"));
+             evento.setIdEvento(res.getInt("int"));
+             evento.setFechaPublicacion(res.getDate("fechapublicacion"));
+             eventos.add(evento);
+             
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return eventos;
+
+    }
+       
+          public List<ProductoResponse> obtenerProductos(int idFoodtruck) {
+
+        ProductoResponse  producto=new ProductoResponse();
+        List<ProductoResponse> productos = new ArrayList<ProductoResponse>();
+        String sql = "Select f.idproducto,f.precio,p.descripcion,p.nombre from productoxft f  inner join producto p on f.idProducto=p.idProducto where f.idproducto=?;";
+
+        try {
+
+            Connection conn = ConeccionBD.GetConnection();
+            PreparedStatement pes;
+            pes = conn.prepareStatement(sql);
+            pes.setInt(1, idFoodtruck);
+            ResultSet res = pes.executeQuery();
+
+            while (res.next()) {
+            producto.setIdProducto(res.getInt("idproducto"));
+            producto.setNombre(res.getString("nombre"));
+            producto.setDescripcion(res.getString("descripcion"));
+            producto.setPrecio(res.getFloat("precio"));
+            productos.add(producto);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return productos;
+
+    }
+
+          
+   //Obtener FoodTrucks Listado
+          
+  //latitud longitud
+          
+  //Modificar Direccion
+          
+  //Aumentar Corazon de Foodtruck
+            
+          
+          
+          
+          
 }

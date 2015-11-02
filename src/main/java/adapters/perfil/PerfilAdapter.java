@@ -8,4 +8,8 @@ package adapters.perfil;
 
 public interface PerfilAdapter {
     
+    
+    
+    
+    
 }
