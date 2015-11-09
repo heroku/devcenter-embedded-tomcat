@@ -1,11 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package adapters.perfil;
 
+import dto.UserRegistro.ClienteResponse;
+import gestores.GestorBD;
 
-public class PerfilClienteAdapter {
+
+public class PerfilClienteAdapter implements  PerfilAdapter{
+
+    public ClienteResponse mostrarPerfil(int idCliente,int idTipo) {
+        
+      GestorBD gestor=GestorBD.getInstance();
+      ClienteResponse clienteNormal=gestor.mostrarPerfilCliente(idCliente,idTipo);
+      return clienteNormal;
+        
+    }
+
+    public void editarPerfil() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

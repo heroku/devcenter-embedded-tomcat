@@ -38,7 +38,11 @@ public class GestorBD {
 //Metodos de BD
     
     public ClienteResponse VerificarLogin(String user, String pass) {
-        String sql = "Select id_Cliente from cliente where usuario=? and password=?";
+        String sql = "Select "
+                    + "id_Cliente "
+                    + "from cliente "
+                    + "where usuario=? "
+                    + "and password=?";
         ClienteResponse cliente;
         try {
 
@@ -67,7 +71,9 @@ public class GestorBD {
 
         UsuarioResponse response = new UsuarioResponse();
 
-        String sql = "insert into cliente (usuario,pass,nombres,email) VALUES(?,?,?,?)";
+        String sql = "insert "
+                    + "into cliente (usuario,pass,nombres,email) "
+                    + "VALUES(?,?,?,?)";
 
         try {
             Connection conn = ConeccionBD.GetConnection();
@@ -111,7 +117,11 @@ public class GestorBD {
 
         try {
 
-            String sql = "Select id_categoria,nombre,foto from categoria";
+            String sql = "Select "
+                        + "id_categoria,"
+                        + "nombre,"
+                        + "foto "
+                        + "from categoria";
             Connection conn = ConeccionBD.GetConnection();
             PreparedStatement pes = conn.prepareStatement(sql);
             ResultSet res = pes.executeQuery();
@@ -185,9 +195,7 @@ public class GestorBD {
                 foodtruck.setNombre(res.getString("nombre"));
                 foodtruck.setDireccion(res.getString("direccion"));
                 foodtruck.setHorarInicio(res.getString("hora_inicio"));
-                foodtruck.setHorarFin(res.getString("hora_fin"));
-                foodtruck.setEmail(res.getString("email"));
-                
+                foodtruck.setHorarFin(res.getString("hora_fin"));                
             //foodtruck.setCondicion(res.getString("condicion"));
 
             }
@@ -198,27 +206,39 @@ public class GestorBD {
 
     }
 
-    public void mostrarPerfilCliente(ClienteResponse cliente) {
+    public ClienteResponse mostrarPerfilCliente(int idCliente,int idTipo) {
 
-        String sql = "Select nombres,email from cliente where id_cliente=?";
-
+        String sql = "Select "
+                    + "nombres,"
+                    + "email"
+                    + "from cliente "
+                    + "where "
+                    + "id_cliente=? and "
+                    + "id_tipo=?"; //modificar en la BD
+        
+        ClienteResponse cliente=new ClienteResponse();
+        
         try {
 
             Connection conn = ConeccionBD.GetConnection();
             PreparedStatement pes;
-            pes = conn.prepareStatement(sql);
-            pes.setInt(1, cliente.getId_Cliente());
+            pes = conn.prepareStatement(sql);            
+            pes.setInt(1, idCliente);
+            pes.setInt(2, idTipo);
             ResultSet res = pes.executeQuery();
 
             while (res.next()) {
-                cliente.setEmail(sql);
-                cliente.setNombres(sql);
+                cliente.setId_Cliente(idCliente);
+                cliente.setEmail(res.getString("email"));
+                cliente.setNombres(res.getString("nombres"));                
                 cliente.setGustos(obtenerGustosCliente(cliente.getId_Cliente()));
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return  cliente;
 
     }
 
@@ -228,7 +248,14 @@ public class GestorBD {
         ComentarioResponse comentario = new ComentarioResponse();
         comentario.setIdfoodtruck(idFoodtruck);
         List<ComentarioResponse> comentarios = new ArrayList<ComentarioResponse>();
-        String sql = "Select c.descripcion,f.fechacomentario,f.id_cliente from comentarioxft  f inner join comentario c  on f.id_comentario=c.id_comentario where f.id_foodtruck=?";
+        String sql = "Select "
+                    + "c.descripcion,"
+                    + "f.fechacomentario,"
+                    + "f.id_cliente "
+                    + "from comentarioxft  f "
+                    + "inner join comentario c  "
+                    + "on f.id_comentario=c.id_comentario "
+                    + "where f.id_foodtruck=?";
 
         try {
 
@@ -285,7 +312,9 @@ public class GestorBD {
 
     public void ingresarGustos(List<GustosResponse> gustos, ClienteResponse cliente) {
 
-        String sql = "Insert into clientexcategoria(id_cliente,id_categoria) values(?,?)";
+        String sql = "Insert "
+                    + "into clientexcategoria(id_cliente,id_categoria) "
+                    + "values(?,?)";
 
         try {
 
@@ -315,7 +344,17 @@ public class GestorBD {
 
     public List<GustosResponse> obtenerGustosCliente(int id_cliente) {
         List<GustosResponse> gustos = new ArrayList<GustosResponse>();
-        String sql = "Select g.id_categoria,c.nombre,c.foto from clientexcategoria g inner join categoria  c on g.id_categoria=c.id_categoria where g.id_cliente=?";
+        String sql = "Select "
+                    + "g.id_categoria,"
+                    + "c.nombre,"
+                    + "c.foto "
+                    + "from "
+                    + "clientexcategoria g "
+                    + "inner join "
+                    + "categoria  "
+                    + "c on "
+                    + "g.id_categoria=c.id_categoria "
+                    + "where g.id_cliente=?";
 
         try {
 
@@ -347,7 +386,15 @@ public class GestorBD {
         EventoResponse evento = new EventoResponse();
        
         List<EventoResponse> eventos = new ArrayList<EventoResponse>();
-        String sql = "Select e.idEvento,f.fechaPublicacion,e.nombre,e.Descripcion,e.url from eventoxft f inner join  evento e  on e.idEvento=f.idEvento where f.idEvento=?";
+        String sql = "Select "
+                    + "e.idEvento,"
+                    + "f.fechaPublicacion,"
+                    + "e.nombre,"
+                    + "e.Descripcion,"
+                    + "e.url from eventoxft f "
+                    + "inner join  evento e  "
+                    + "on e.idEvento=f.idEvento "
+                    + "where f.idEvento=?";
 
         try {
 
@@ -405,6 +452,63 @@ public class GestorBD {
         return productos;
 
     }
+          
+   ///revisar los campos del footruck       
+    public List<FoodTruckResponse> obtenerRanking() {
+
+        List<FoodTruckResponse> foodTrucks = new ArrayList<FoodTruckResponse>();
+        String sql = "Select \n"
+                + "idFoodtruck,\n"
+                + "contador \n"
+                + "from \n"
+                + "puntaje\n"
+                + "where mesanio=(Select max(mesanio) from puntaje)\n"
+                + "order by  \n"
+                + "contador desc;";
+
+        try {
+
+            Connection conn = ConeccionBD.GetConnection();
+            PreparedStatement pes;
+            pes = conn.prepareStatement(sql);
+            ResultSet res = pes.executeQuery();
+            int idFoodTruck = 0;
+            int punteje = 0;
+            FoodTruckResponse foodtruck = new FoodTruckResponse();
+
+            while (res.next()) {
+                idFoodTruck = res.getInt("idFoodtruck");
+                punteje = res.getInt("contador");
+                foodtruck.setIdFoodTruck(idFoodTruck);
+                obtenerFoodTruck(foodtruck);
+                foodtruck.setPuntaje(punteje);
+                foodTrucks.add(foodtruck);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return foodTrucks;   
+   }        
+          
+  public  void aumentarCorazones(FoodTruckResponse foodtruck){
+  
+  String sql="";    
+      
+      
+      
+      
+   
+  
+  
+  
+  } 
+   
+   
+          
+          
 
           
    //Obtener FoodTrucks Listado
