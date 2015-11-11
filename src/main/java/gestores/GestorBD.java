@@ -35,15 +35,18 @@ public class GestorBD {
 
     private GestorBD(){};   
     
-//Metodos de BD
+    //Metodos de BD
     
     public ClienteResponse VerificarLogin(String user, String pass) {
+        
         String sql = "Select "
                     + "id_Cliente "
                     + "from cliente "
                     + "where usuario=? "
                     + "and password=?";
+        
         ClienteResponse cliente;
+        
         try {
 
             Connection conn = ConeccionBD.GetConnection();
@@ -72,8 +75,8 @@ public class GestorBD {
         UsuarioResponse response = new UsuarioResponse();
 
         String sql = "insert "
-                    + "into cliente (usuario,pass,nombres,email) "
-                    + "VALUES(?,?,?,?)";
+                    + "into cliente (usuario,pass,nombres,email,tipo) "
+                    + "VALUES(?,?,?,?,?)";
 
         try {
             Connection conn = ConeccionBD.GetConnection();
@@ -85,6 +88,7 @@ public class GestorBD {
             ps.setString(2, usuario.getPass());
             ps.setString(3, usuario.getNombre());
             ps.setString(4, usuario.getEmail());
+            ps.setInt(5, 0); //siempre que sea un usuario el campo tipo sera 0
 
             int confirmacion = ps.executeUpdate();
 
@@ -149,7 +153,11 @@ public class GestorBD {
         FoodTruckResponse foodTruck = new FoodTruckResponse();
         List<FoodTruckResponse> listaFoodTruck = new ArrayList<FoodTruckResponse>();
 
-        String sql = "select nombre,id_FoodTruck from foodtruck where id_Categoria=?";
+        String sql = "select "
+                    + "nombre,"
+                    + "id_FoodTruck "
+                    + "from foodtruck "
+                    + "where id_Categoria=?";
 
         try {
 
@@ -176,7 +184,14 @@ public class GestorBD {
 
     public void obtenerFoodTruck(FoodTruckResponse foodtruck) {
 
-        String sql = "Select nombre,direccion,horainicio,horafin,email from foodtruck where id_foodtruck=?";
+        String sql = "Select "
+                    + "nombre,"
+                    + "direccion,"
+                    + "horainicio,"
+                    + "horafin,"
+                    + "email "
+                    + "from foodtruck "
+                    + "where id_foodtruck=?";
 
         try {
 
@@ -285,7 +300,15 @@ public class GestorBD {
         CuponResponse cupon = new CuponResponse();
         List<CuponResponse> cupones = new ArrayList<CuponResponse>();
 
-        String sql = "Select  a.idCupon,a.nombre, a.descripcion from  CuponxFoodTruck a inner join  ft_cupon b on  a.idCupon=b.idCupon where  a.idFoodTruck=?";
+        String sql = "Select  "
+                    + "a.idCupon,"
+                    + "a.nombre, "
+                    + "a.descripcion "
+                    + "from  CuponxFoodTruck a "
+                    + "inner join  "
+                    + "ft_cupon b on  "
+                    + "a.idCupon=b.idCupon "
+                    + "where  a.idFoodTruck=?";
 
         try {
 
@@ -426,7 +449,16 @@ public class GestorBD {
 
         ProductoResponse  producto=new ProductoResponse();
         List<ProductoResponse> productos = new ArrayList<ProductoResponse>();
-        String sql = "Select f.idproducto,f.precio,p.descripcion,p.nombre from productoxft f  inner join producto p on f.idProducto=p.idProducto where f.idproducto=?;";
+        String sql = "Select "
+                    + "f.idproducto,"
+                    + "f.precio,"
+                    + "p.descripcion,"
+                    + "p.nombre "
+                    + "from productoxft f  "
+                    + "inner join "
+                    + "producto p on "
+                    + "f.idProducto=p.idProducto "
+                    + "where f.idproducto=?;";
 
         try {
 
@@ -458,13 +490,13 @@ public class GestorBD {
 
         List<FoodTruckResponse> foodTrucks = new ArrayList<FoodTruckResponse>();
         String sql = "Select \n"
-                + "idFoodtruck,\n"
-                + "contador \n"
-                + "from \n"
-                + "puntaje\n"
-                + "where mesanio=(Select max(mesanio) from puntaje)\n"
-                + "order by  \n"
-                + "contador desc;";
+                    + "idFoodtruck,\n"
+                    + "contador \n"
+                    + "from \n"
+                    + "puntaje\n"
+                    + "where mesanio=(Select max(mesanio) from puntaje)\n"
+                    + "order by  \n"
+                    + "contador desc;";
 
         try {
 
@@ -497,28 +529,9 @@ public class GestorBD {
   
   String sql="";    
       
-      
-      
-      
-   
-  
-  
   
   } 
    
-   
-          
-          
-
-          
-   //Obtener FoodTrucks Listado
-          
-  //latitud longitud
-          
-  //Modificar Direccion
-          
-  //Aumentar Corazon de Foodtruck
-            
           
           
           
