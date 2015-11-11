@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
 
-
+name="ObtenerCartasServlet",
+urlPatterns = {"/usuario/productos"}
+        
 )
 
 public class ObtenerCartaServlet extends HttpServlet {

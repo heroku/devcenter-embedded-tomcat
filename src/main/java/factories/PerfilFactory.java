@@ -25,11 +25,11 @@ public class PerfilFactory {
     
     public PerfilAdapter obtenerPerfil(int tipo){
     
-    if(tipo==1){        
+    if(tipo==0){        
      
      return  new PerfilClienteAdapter();     
      
-    }else if(tipo==2){        
+    }else if(tipo==1){        
    
      return  new PerfilFoodtruckAdapter();    
      
