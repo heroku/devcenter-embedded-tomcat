@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package launch;
 
-import dto.UserRegistro.ClienteResponse;
 
-/**
- *
- * @author GARY
- */
+import gestores.ConexionAuxiliar;
+import java.sql.Connection;
+
+
 public class prueba {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
-        ClienteResponse cliente=new ClienteResponse();
+        ConexionAuxiliar con=new ConexionAuxiliar();
+         Connection conexion=con.GetConnection();
         
-        System.out.println(cliente.getId_Cliente());
     }
     
 }

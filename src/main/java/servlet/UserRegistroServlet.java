@@ -30,6 +30,8 @@ public class UserRegistroServlet extends HttpServlet {
         out.close();
     }
 
+    
+    //luego de registrar al usuario , el apliactivo te lleva a la pagina de login
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,7 +43,6 @@ public class UserRegistroServlet extends HttpServlet {
         UsuarioRequest usuarioRequest = gson.fromJson(request.getReader(), UsuarioRequest.class);
 
         UsuarioResponse usuarioResponse = gestor.RegistrarUsuario(usuarioRequest);
-        
 
         response.getOutputStream().print(gson.toJson(usuarioResponse));
         response.getOutputStream().flush();

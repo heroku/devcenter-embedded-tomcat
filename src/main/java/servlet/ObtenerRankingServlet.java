@@ -2,7 +2,7 @@
 package servlet;
 
 import com.google.gson.Gson;
-import dto.UserRegistro.GustosResponse;
+import dto.UserRegistro.FoodTruckResponse;
 import gestores.GestorBD;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,28 +13,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(
-name ="GustosServlet",
-urlPatterns = {"/usuario/gustos"}
 
+@WebServlet(
+name="ObtenerRankginServlet",
+urlPatterns = {"/usuario/ranking"}
+      
 )
 
-public class SeleccionarGustosServlet extends HttpServlet{
+public class ObtenerRankingServlet extends HttpServlet{
     
     
-@Override
+    @Override
  protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       response.setContentType("application/json");
-       
-       List<GustosResponse> gustos=GestorBD.getInstance().seleccionarGustos();
-       String json=new Gson().toJson(gustos);
-       
-       response.setContentType("application/json");
-       PrintWriter out = response.getWriter();
-       out.print(json); 
+        GestorBD gestor=GestorBD.getInstance();
+        List<FoodTruckResponse>ranking=gestor.obtenerRanking();
+        
+        String json=new Gson().toJson(ranking);
+        response.setContentType("application/json");
+        
+        PrintWriter out = response.getWriter();
+        out.print(json); 
+ 
+        
+     
+     
  
  }    
-    
 }

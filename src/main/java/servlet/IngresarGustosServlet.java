@@ -37,10 +37,13 @@ public class IngresarGustosServlet extends HttpServlet{
     
         InputStream is= request.getInputStream();
         Reader reader=new InputStreamReader(is,"utf-8");
+        
         GestorBD gestor=GestorBD.getInstance();
         List<GustosResponse> gustos=new Gson().fromJson(reader,new TypeToken<List<GustosResponse>>(){}.getType());
+        
         HttpSession session=(HttpSession)request.getSession();        
         ClienteResponse cliente=(ClienteResponse)session.getAttribute("cliente");
+        
         gestor.ingresarGustos(gustos, cliente);
         
 
