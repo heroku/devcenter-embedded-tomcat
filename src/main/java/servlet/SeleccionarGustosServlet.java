@@ -27,11 +27,8 @@ public class SeleccionarGustosServlet extends HttpServlet{
             throws ServletException, IOException {
 
        response.setContentType("application/json");
-       
        List<GustosResponse> gustos=GestorBD.getInstance().seleccionarGustos();
        String json=new Gson().toJson(gustos);
-       
-       response.setContentType("application/json");
        PrintWriter out = response.getWriter();
        out.print(json); 
  

@@ -5,15 +5,19 @@ public class CuponResponse {
 
     private int idCupon;
     private String descripcion;
-    private String qr;
     private String nombre;
+    private int idfoodtruck;
+    private int cantidad;
 
-    public CuponResponse(int idCupon, String descripcion, String qr, String nombre) {
+    public CuponResponse(int idCupon, String descripcion, String nombre, int idfoodtruck, int cantidad) {
         this.idCupon = idCupon;
         this.descripcion = descripcion;
-        this.qr = qr;
         this.nombre = nombre;
+        this.idfoodtruck = idfoodtruck;
+        this.cantidad=cantidad;
     }
+
+    
 
     public CuponResponse() {
     }
@@ -34,20 +38,28 @@ public class CuponResponse {
         this.descripcion = descripcion;
     }
 
-    public String getQr() {
-        return qr;
-    }
-
-    public void setQr(String qr) {
-        this.qr = qr;
-    }
-
-    public String getNombre() {
+       public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getIdfoodtruck() {
+        return idfoodtruck;
+    }
+
+    public void setIdfoodtruck(int idfoodtruck) {
+        this.idfoodtruck = idfoodtruck;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
 }

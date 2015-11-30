@@ -7,7 +7,6 @@ public class FoodTruckResponse {
     private int idFoodTruck;
     private String nombre;
     private GustosResponse gustos;
-    private String direccion;
     private String horarInicio;
     private String horarFin;
     private String fotoPerfil;
@@ -15,9 +14,13 @@ public class FoodTruckResponse {
     private List<ProductoResponse> productos;
     private List<ComentarioResponse> comentarios;
     private List<CuponResponse> cupones;
+    private String email;
+    private String password;
     private int puntaje;
     private int pustoRanking;
     private String condicion;
+    private float latitud;
+    private float longitud;
 
     public FoodTruckResponse() {
     }
@@ -44,14 +47,6 @@ public class FoodTruckResponse {
 
     public void setGustos(GustosResponse gustos) {
         this.gustos = gustos;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public String getHorarInicio() {
@@ -102,6 +97,22 @@ public class FoodTruckResponse {
         this.comentarios = comentarios;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public int getPuntaje() {
         return puntaje;
     }
@@ -132,6 +143,22 @@ public class FoodTruckResponse {
 
     public void setCondicion(String condicion) {
         this.condicion = condicion;
+    }
+
+    public float getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(float latitud) {
+        this.latitud = latitud;
+    }
+
+    public float getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(float longitud) {
+        this.longitud = longitud;
     }
     
     

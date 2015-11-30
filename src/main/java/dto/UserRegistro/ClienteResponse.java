@@ -11,20 +11,17 @@ public class ClienteResponse {
     private String usuario;
     private String password;
     private String email;
-    private String tipo;
     private List<GustosResponse> gustos;
-    private FoodTruckResponse foodtruck;
 
     public ClienteResponse() {
     }
 
-    public ClienteResponse(int id_Cliente, String nombres, String usuario, String password, String email,String tipo) {
+    public ClienteResponse(int id_Cliente, String nombres, String usuario, String password, String email) {
         this.id_Cliente = id_Cliente;
         this.nombres = nombres;
         this.usuario = usuario;
         this.password = password;
         this.email = email;
-        this.tipo=tipo;
     }
 
     public int getId_Cliente() {
@@ -74,24 +71,6 @@ public class ClienteResponse {
     public void setGustos(List<GustosResponse> gustos) {
         this.gustos = gustos;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public FoodTruckResponse getFoodtruck() {
-        return foodtruck;
-    }
-
-    public void setFoodtruck(FoodTruckResponse foodtruck) {
-        this.foodtruck = foodtruck;
-    }
-    
-    
     
     
     
