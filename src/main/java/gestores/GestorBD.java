@@ -1,8 +1,10 @@
 package gestores;
 
+import com.mysql.fabric.Response;
 import dto.UserRegistro.ClienteResponse;
 import dto.UserRegistro.ComentarioResponse;
 import dto.UserRegistro.CuponResponse;
+import dto.UserRegistro.DireccionResponse;
 import dto.UserRegistro.EventoResponse;
 import dto.UserRegistro.FoodTruckResponse;
 import dto.UserRegistro.GustosResponse;
@@ -431,7 +433,7 @@ public class GestorBD {
              evento.setNombre(res.getString("nombre"));
              evento.setDescripcion(res.getString("Descripcion"));
              evento.setUrl(res.getString("url"));
-             evento.setIdEvento(res.getInt("int"));
+             evento.setIdEvento(res.getInt("idEvento"));
              evento.setFechaPublicacion(res.getDate("fechapublicacion"));
              eventos.add(evento);
              
@@ -444,9 +446,11 @@ public class GestorBD {
         return eventos;
 
     }
+      
        
-          public List<ProductoResponse> obtenerProductos(int idFoodtruck) {
+       public List<ProductoResponse> obtenerProductos(int idFoodtruck) {
 
+              
         ProductoResponse  producto=new ProductoResponse();
         List<ProductoResponse> productos = new ArrayList<ProductoResponse>();
         String sql = "Select "
@@ -485,18 +489,18 @@ public class GestorBD {
 
     }
           
-   ///revisar los campos del footruck       
+    ///revisar los campos del footruck       
     public List<FoodTruckResponse> obtenerRanking() {
 
         List<FoodTruckResponse> foodTrucks = new ArrayList<FoodTruckResponse>();
         String sql = "Select \n"
-                    + "idFoodtruck,\n"
-                    + "contador \n"
-                    + "from \n"
-                    + "puntaje\n"
-                    + "where mesanio=(Select max(mesanio) from puntaje)\n"
-                    + "order by  \n"
-                    + "contador desc;";
+                + "idFoodtruck,\n"
+                + "contador \n"
+                + "from \n"
+                + "puntaje\n"
+                + "where mesanio=(Select max(mesanio) from puntaje)\n"
+                + "order by  \n"
+                + "contador desc;";
 
         try {
 
@@ -505,15 +509,15 @@ public class GestorBD {
             pes = conn.prepareStatement(sql);
             ResultSet res = pes.executeQuery();
             int idFoodTruck = 0;
-            int punteje = 0;
+            int puntaje = 0;
             FoodTruckResponse foodtruck = new FoodTruckResponse();
 
             while (res.next()) {
                 idFoodTruck = res.getInt("idFoodtruck");
-                punteje = res.getInt("contador");
+                puntaje = res.getInt("contador");
                 foodtruck.setIdFoodTruck(idFoodTruck);
                 obtenerFoodTruck(foodtruck);
-                foodtruck.setPuntaje(punteje);
+                foodtruck.setPuntaje(puntaje);
                 foodTrucks.add(foodtruck);
 
             }
@@ -522,18 +526,90 @@ public class GestorBD {
             Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return foodTrucks;   
-   }        
-          
-  public  void aumentarCorazones(FoodTruckResponse foodtruck){
-  
-  String sql="";    
-      
-  
-  } 
-   
-          
-          
-          
-          
-}
+        return foodTrucks;
+    }
+
+    public UsuarioResponse aumentarCorazones(int idFoodTruck) {
+
+        String sql= "update \n" +
+                    "puntaje p\n" +
+                    "set p.contador=p.contador+1\n" +
+                    "where \n" +
+                    "idFoodTruck=? and \n" +
+                    "p.mesanio=(\n" +
+                    "Select mes from (Select  max(mesanio) as mes  from puntaje  ) as mes \n" +
+                    ")";
+        UsuarioResponse response = new UsuarioResponse();
+
+        try {
+
+            Connection conn = ConeccionBD.GetConnection();
+            PreparedStatement pes;
+            pes = conn.prepareStatement(sql);
+            pes.setInt(1, idFoodTruck);
+            int confirmacion = pes.executeUpdate();
+
+            if (confirmacion == 1) {
+
+                response = new UsuarioResponse("OK", "");
+
+            } else {
+
+                response = new UsuarioResponse("", "REGISTRO INCORRECTO");
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return response;
+
+    }
+    
+        public DireccionResponse obtenerDireccion(int idFoodTruck) {
+
+        String sql = "Select \n"
+                + "latitud,\n"
+                + "longitud\n"
+                + "from\n"
+                + "foodtruck\n"
+                + "where \n"
+                + "idFoodTruck=?";
+
+        DireccionResponse direccion = new DireccionResponse();
+
+        try {
+
+            Connection conn = ConeccionBD.GetConnection();
+            PreparedStatement pes;
+            pes = conn.prepareStatement(sql);
+            pes.setInt(1, idFoodTruck);
+            ResultSet res = pes.executeQuery();
+
+            while (res.next()) {
+                direccion.setLatitud(res.getFloat("latitud"));
+                direccion.setLongitud(res.getFloat("latitud"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return direccion;
+
+    }
+     
+        
+    public      
+        
+        
+ 
+        
+        
+        
+        
+        
+        
+        
+ }

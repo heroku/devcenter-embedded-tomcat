@@ -44,12 +44,5 @@ public class MostrarPerfilServlet extends HttpServlet{
      
  }   
     
-    
-    
-    
-    
-    
-    
-    
-    
+     
 }

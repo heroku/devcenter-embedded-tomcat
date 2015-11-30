@@ -18,6 +18,7 @@ public class FoodTruckResponse {
     private int puntaje;
     private int pustoRanking;
     private String condicion;
+    private DireccionResponse ubicacion;
 
     public FoodTruckResponse() {
     }
@@ -133,6 +134,18 @@ public class FoodTruckResponse {
     public void setCondicion(String condicion) {
         this.condicion = condicion;
     }
+
+    public DireccionResponse getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(DireccionResponse ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+
+    
+    
     
     
 
