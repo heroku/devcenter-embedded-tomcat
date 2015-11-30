@@ -600,8 +600,7 @@ public class GestorBD {
 
     }
      
-        
-    public      
+     
         
         
  
