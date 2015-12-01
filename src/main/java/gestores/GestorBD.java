@@ -9,12 +9,14 @@ import dto.UserRegistro.EventoResponse;
 import dto.UserRegistro.FoodTruckResponse;
 import dto.UserRegistro.GustosResponse;
 import dto.UserRegistro.ProductoResponse;
+import dto.UserRegistro.ReportesResponse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import dto.UserRegistro.UsuarioRequest;
 import dto.UserRegistro.UsuarioResponse;
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -599,11 +601,52 @@ public class GestorBD {
         return direccion;
 
     }
-     
-     
         
-        
- 
+         public List<ReportesResponse> generarReporte(int idFoodTruck) {
+
+        String sql = "Select\n"
+                    + "v.MesId,\n"
+                    + "p.nombre as producto,\n"
+                    + "count(1) as cantidad\n"
+                    + "from  ventas v \n"
+                    + "inner join\n"
+                    + "producto p on\n"
+                    + "v.idProducto=p.idProducto \n"
+                    + "where  v.idFoodtruck=?\n"
+                    + "group by\n"
+                    + "v.MesId,\n"
+                    + "p.nombre";
+
+        ReportesResponse reporte = new ReportesResponse();
+        List<ReportesResponse> reportes = new ArrayList<ReportesResponse>();
+
+        try {
+
+            Connection conn = ConeccionBD.GetConnection();
+            PreparedStatement pes;
+            pes = conn.prepareStatement(sql);
+            pes.setInt(1, idFoodTruck);
+            ResultSet res = pes.executeQuery();
+
+            while (res.next()) {
+
+                reporte.setMesid(res.getString("mesid"));
+                reporte.setProducto(res.getString("producto"));
+                reporte.setCantidad(res.getInt("cantidad"));
+
+                reportes.add(reporte);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return reportes;
+
+    }
+
+
         
         
         
