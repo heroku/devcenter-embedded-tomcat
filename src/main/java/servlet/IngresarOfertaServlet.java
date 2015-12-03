@@ -33,12 +33,15 @@ public class IngresarOfertaServlet extends HttpServlet {
         InputStream is= request.getInputStream();
         Reader reader=new InputStreamReader(is,"utf-8");
         GestorBD gestor=GestorBD.getInstance();
-        
-        Cupon cupon = new CuponResponse(idCupon, null, null, idfoodtruck, cantidad)
+
+        /*
+        todo: terminar
+        Cupon cupon = new CuponResponse(idCupon, null, null, idfoodtruck, cantidad);
         List<GustosResponse> gustos=new Gson().fromJson(reader,new TypeToken<List<GustosResponse>>(){}.getType());
         
         HttpSession session=(HttpSession)request.getSession();        
         ClienteResponse cliente=(ClienteResponse)session.getAttribute("cliente");
         gestor.ingresarOferta(cupon);
+        */
 }
 }
