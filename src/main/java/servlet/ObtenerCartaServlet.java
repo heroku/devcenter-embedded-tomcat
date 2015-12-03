@@ -30,13 +30,14 @@ public class ObtenerCartaServlet extends HttpServlet {
         int idFoodTruck = Integer.parseInt(request.getParameter("idFoodTruck"));
         GestorBD gestor = GestorBD.getInstance();
 
-        List<ProductoResponse> productos = gestor.obtenerProductos(idFoodTruck);
-        String json = new Gson().toJson(productos);
+        ///List<ProductoResponse> productos = gestor.obtenerProductos(idFoodTruck);
+        //String json = new Gson().toJson(productos);
         
         
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        out.print(json);
+        //out.print(json);
+
 
     }
 

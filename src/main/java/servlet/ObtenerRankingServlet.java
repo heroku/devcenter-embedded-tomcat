@@ -28,13 +28,13 @@ public class ObtenerRankingServlet extends HttpServlet{
             throws ServletException, IOException {
 
         GestorBD gestor=GestorBD.getInstance();
-        List<FoodTruckResponse>ranking=gestor.obtenerRanking();
+        //List<FoodTruckResponse>ranking=gestor.obtenerRanking();
         
-        String json=new Gson().toJson(ranking);
+       // String json=new Gson().toJson(ranking);
         response.setContentType("application/json");
         
         PrintWriter out = response.getWriter();
-        out.print(json); 
+        //out.print(json);
  
         
      
