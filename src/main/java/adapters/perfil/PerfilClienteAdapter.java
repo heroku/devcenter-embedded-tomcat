@@ -10,9 +10,9 @@ public class PerfilClienteAdapter implements  PerfilAdapter{
     public ClienteResponse mostrarPerfil(int idCliente,int idTipo) {
         
       GestorBD gestor=GestorBD.getInstance();
-      ClienteResponse clienteNormal=gestor.mostrarPerfilCliente(idCliente,idTipo);
-      return clienteNormal;
-        
+     // ClienteResponse clienteNormal=gestor.mostrarPerfilCliente(idCliente,idTipo);
+      //return clienteNormal;
+        return null;
     }
 
     public void editarPerfil() {
