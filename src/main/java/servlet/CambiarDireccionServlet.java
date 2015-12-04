@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
-        name = "MyServlet", 
-        urlPatterns = {"/helloCGHOCLO"}
+        name = "MyServletChoclo",
+        urlPatterns = {"/hellochoclo"}
     )
 public class CambiarDireccionServlet extends HttpServlet {
 
