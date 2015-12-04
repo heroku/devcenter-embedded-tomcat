@@ -1,3 +1,4 @@
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 # Create a Java Web Application using Embedded Tomcat
 
 This tutorial will show you how to create a simple Java web application using embedded Tomcat.
