@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//http://localhost:8080/usuario/gustos
 
 public class GestorBD {
 

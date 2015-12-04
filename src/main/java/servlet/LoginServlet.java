@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(
 name="LoginServlet",
-urlPatterns = {"usuario/login"}
+urlPatterns = {"/usuario/login"}
 )
 
 

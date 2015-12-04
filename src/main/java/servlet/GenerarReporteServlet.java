@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 
 @WebServlet(
 name = "GenerarReporteServlet",
-urlPatterns = "usuario/reporte"
+urlPatterns = "/usuario/reporte"
 )
 
 
