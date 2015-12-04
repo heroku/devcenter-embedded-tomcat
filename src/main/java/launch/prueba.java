@@ -11,7 +11,7 @@ public class prueba {
   
     public static void main(String[] args) {
         ConexionAuxiliar con=new ConexionAuxiliar();
-         Connection conexion=con.GetConnection();
+         Connection conexion= ConexionAuxiliar.GetConnection();
         
     }
     

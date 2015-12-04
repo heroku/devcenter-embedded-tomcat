@@ -5,12 +5,14 @@ import dto.UserRegistro.ComentarioResponse;
 import dto.UserRegistro.CuponResponse;
 import dto.UserRegistro.FoodTruckResponse;
 import dto.UserRegistro.GustosResponse;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import dto.UserRegistro.UsuarioRequest;
 import dto.UserRegistro.UsuarioResponse;
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +33,13 @@ public class GestorBD {
         return singleton;
     }
 
-    private GestorBD(){};   
-    
+    private GestorBD() {
+    }
+
 //Metodos de BD
-    
+
     public ClienteResponse VerificarLogin(String user, String pass) {
-        String sql = "Select id_Cliente from cliente where usuario=? and password=?";
+        String sql = "SELECT id_Cliente FROM cliente WHERE usuario=? AND password=?";
         ClienteResponse cliente;
         try {
 
@@ -46,15 +49,14 @@ public class GestorBD {
             pes.setString(1, user);
             pes.setString(2, pass);
             ResultSet res = pes.executeQuery();
-            cliente=new ClienteResponse();
+            cliente = new ClienteResponse();
 
             while (res.next()) {
                 cliente.setId_Cliente(res.getInt("id_Cliente"));
             }
-            
 
         } catch (SQLException ex) {
-             cliente=new ClienteResponse();
+            cliente = new ClienteResponse();
         }
 
         return cliente;
@@ -65,7 +67,7 @@ public class GestorBD {
 
         UsuarioResponse response = new UsuarioResponse();
 
-        String sql = "insert into cliente (usuario,pass,nombres,email) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO cliente (usuario,password,nombres,email) VALUES(?,?,?,?)";
 
         try {
             Connection conn = ConeccionBD.GetConnection();
@@ -109,7 +111,7 @@ public class GestorBD {
 
         try {
 
-            String sql = "Select id_categoria,nombre,foto from categoria";
+            String sql = "SELECT id_categoria,nombre,foto FROM categoria";
             Connection conn = ConeccionBD.GetConnection();
             PreparedStatement pes = conn.prepareStatement(sql);
             ResultSet res = pes.executeQuery();
@@ -137,7 +139,7 @@ public class GestorBD {
         FoodTruckResponse foodTruck = new FoodTruckResponse();
         List<FoodTruckResponse> listaFoodTruck = new ArrayList<FoodTruckResponse>();
 
-        String sql = "select nombre,id_FoodTruck from foodtruck where id_Categoria=?";
+        String sql = "SELECT nombre,idFoodTruck FROM foodtruck WHERE id_Categoria=?";
 
         try {
 
@@ -164,7 +166,7 @@ public class GestorBD {
 
     public void obtenerFoodTruck(FoodTruckResponse foodtruck) {
 
-        String sql = "Select nombre,latitud,longitud,horainicio,horafin,email from foodtruck where id_foodtruck=?";
+        String sql = "SELECT nombre,latitud,longitud,horarInicio,horarFin FROM foodtruck WHERE idFoodtruck=?";
 
         try {
 
@@ -177,14 +179,12 @@ public class GestorBD {
             while (res.next()) {
 
                 foodtruck.setComentarios(obtenerComentarios(foodtruck.getIdFoodTruck()));
-                foodtruck.setCupones(obtenerCupones(foodtruck.getIdFoodTruck()));
                 foodtruck.setNombre(res.getString("nombre"));
                 foodtruck.setLatitud(res.getFloat("latitud"));
                 foodtruck.setLatitud(res.getFloat("longitud"));
-                foodtruck.setHorarInicio(res.getString("hora_inicio"));
-                foodtruck.setHorarFin(res.getString("hora_fin"));
-                foodtruck.setEmail(res.getString("email"));
-            //foodtruck.setCondicion(res.getString("condicion"));
+                foodtruck.setHorarInicio(res.getString("horarInicio"));
+                foodtruck.setHorarFin(res.getString("horarFin"));
+                //foodtruck.setCondicion(res.getString("condicion"));
 
             }
 
@@ -196,7 +196,7 @@ public class GestorBD {
 
     public void mostrarPerfil(ClienteResponse cliente) {
 
-        String sql = "Select nombres,email from cliente where id_cliente=?";
+        String sql = "SELECT nombres,email FROM cliente WHERE id_cliente=?";
 
         try {
 
@@ -218,13 +218,13 @@ public class GestorBD {
 
     }
 
-  //Algunos Medotos de Apoyo 
+    //Algunos Medotos de Apoyo
     public List<ComentarioResponse> obtenerComentarios(int idFoodtruck) {
 
         ComentarioResponse comentario = new ComentarioResponse();
         comentario.setIdfoodtruck(idFoodtruck);
         List<ComentarioResponse> comentarios = new ArrayList<ComentarioResponse>();
-        String sql = "Select c.descripcion,f.fechacomentario,f.id_cliente from comentarioxft  f inner join comentario c  on f.id_comentario=c.id_comentario where f.id_foodtruck=?";
+        String sql = "SELECT c.comentario,f.fechacomentario,f.id_cliente FROM comentarioxft  f INNER JOIN comentario c  ON f.idComentario=c.idComentario WHERE f.idFoodtruck=?";
 
         try {
 
@@ -236,7 +236,7 @@ public class GestorBD {
 
             while (res.next()) {
                 comentario.setComentario(res.getString("comentario"));
-                comentario.setIdCliente(res.getInt("idcliente"));
+                comentario.setIdCliente(res.getInt("id_cliente"));
                 comentario.setFecha(res.getDate("fecha"));
                 comentarios.add(comentario);
             }
@@ -249,19 +249,18 @@ public class GestorBD {
 
     }
 
-    public List<CuponResponse> obtenerCupones(int idFoodtruck) {
+    public List<CuponResponse> obtenerCupones() {
 
         CuponResponse cupon = new CuponResponse();
         List<CuponResponse> cupones = new ArrayList<CuponResponse>();
 
-        String sql = "Select  a.idCupon,a.nombre, a.descripcion from  CuponxFoodTruck a inner join  ft_cupon b on  a.idCupon=b.idCupon where  a.idFoodTruck=?";
+        String sql = "SELECT * FROM cupon WHERE cantidad >0";
 
         try {
 
             Connection conn = ConeccionBD.GetConnection();
             PreparedStatement pes;
             pes = conn.prepareStatement(sql);
-            pes.setInt(1, idFoodtruck);
             ResultSet res = pes.executeQuery();
 
             while (res.next()) {
@@ -278,48 +277,47 @@ public class GestorBD {
         return cupones;
 
     }
-    
-    
-    
+
+
     //cambiar direccion
-    public void cambiarDireccion(FoodTruckResponse ft){
-        String sql="update foodtruck set latitud=?,longitud=? where idFoodtruck=?";
-         try{
+    public void cambiarDireccion(FoodTruckResponse ft) {
+        String sql = "UPDATE foodtruck SET latitud=?,longitud=? WHERE idFoodtruck=?";
+        try {
             Connection conn = ConeccionBD.GetConnection();
             PreparedStatement pes;
             pes = conn.prepareStatement(sql);
-            pes.setFloat(1,ft.getLatitud());
-            pes.setFloat(2,ft.getLongitud());
-            pes.setInt(3,ft.getIdFoodTruck());
+            pes.setFloat(1, ft.getLatitud());
+            pes.setFloat(2, ft.getLongitud());
+            pes.setInt(3, ft.getIdFoodTruck());
             pes.executeUpdate();
-         
-         } catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //ingresar dcto
-    public void ingresarOferta(CuponResponse cupon ){
+    public void ingresarOferta(CuponResponse cupon) {
         UsuarioResponse response = new UsuarioResponse();
-        String sql= "Insert into cupon(idCupon,descripcion,nombre,idFoodtruck,cantidad) values(?,?,?,?,?)";
-        try{
+        String sql = "INSERT INTO cupon(idCupon,descripcion,nombre,idFoodtruck,cantidad) VALUES(?,?,?,?,?)";
+        try {
             Connection conn = ConeccionBD.GetConnection();
             PreparedStatement pes;
             pes = conn.prepareStatement(sql);
-            
-            pes.setInt(1,cupon.getIdCupon());
-            pes.setString(2,cupon.getDescripcion());
-            pes.setString(3,cupon.getNombre());
-            pes.setInt(4,cupon.getIdfoodtruck());
-            pes.setInt(5,cupon.getCantidad());
-            int confirmacion =pes.executeUpdate();
-             if (confirmacion == 1) {
+
+            pes.setInt(1, cupon.getIdCupon());
+            pes.setString(2, cupon.getDescripcion());
+            pes.setString(3, cupon.getNombre());
+            pes.setInt(4, cupon.getIdfoodtruck());
+            pes.setInt(5, cupon.getCantidad());
+            int confirmacion = pes.executeUpdate();
+            if (confirmacion == 1) {
                 response.setMsgStatus("Usuario Registrado");
                 response.setMsgError(null);
             } else {
                 response.setMsgStatus("Error");
                 response.setMsgError("Hubo un problema al crear usuario, verifique los campos de datos.");
-             }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -327,7 +325,7 @@ public class GestorBD {
 
     public void ingresarGustos(List<GustosResponse> gustos, ClienteResponse cliente) {
 
-        String sql = "Insert into clientexcategoria(id_cliente,id_categoria) values(?,?)";
+        String sql = "INSERT INTO clientexcategoria(id_cliente,id_categoria) VALUES(?,?)";
 
         try {
 
@@ -357,7 +355,7 @@ public class GestorBD {
 
     public List<GustosResponse> obtenerGustosCliente(int id_cliente) {
         List<GustosResponse> gustos = new ArrayList<GustosResponse>();
-        String sql = "Select g.id_categoria,c.nombre,c.foto from clientexcategoria g inner join categoria  c on g.id_categoria=c.id_categoria where g.id_cliente=?";
+        String sql = "SELECT g.id_categoria,c.nombre,c.foto FROM clientexcategoria g INNER JOIN categoria  c ON g.id_categoria=c.id_categoria WHERE g.id_cliente=?";
 
         try {
 
@@ -381,8 +379,7 @@ public class GestorBD {
 
         return gustos;
     }
-    
-    
-        
-    }
+
+
+}
 

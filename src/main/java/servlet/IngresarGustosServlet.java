@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import dto.UserRegistro.ClienteResponse;
 import dto.UserRegistro.GustosResponse;
 import gestores.GestorBD;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,34 +23,27 @@ import javax.servlet.http.HttpSession;
 
 
 @WebServlet(
-        name ="SeleccionarGustosServlet",
+        name = "SeleccionarGustosServlet",
         urlPatterns = {"/usuario/sendGustos"}
 
 )
 
-public class IngresarGustosServlet extends HttpServlet{
-    
-    
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-    throws ServletException,IOException {
-    
-        InputStream is= request.getInputStream();
-        Reader reader=new InputStreamReader(is,"utf-8");
-        GestorBD gestor=GestorBD.getInstance();
-        List<GustosResponse> gustos=new Gson().fromJson(reader,new TypeToken<List<GustosResponse>>(){}.getType());
-        HttpSession session=(HttpSession)request.getSession();        
-        ClienteResponse cliente=(ClienteResponse)session.getAttribute("cliente");
-        gestor.ingresarGustos(gustos, cliente);
-        
+public class IngresarGustosServlet extends HttpServlet {
 
-        
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        InputStream is = request.getInputStream();
+        Reader reader = new InputStreamReader(is, "utf-8");
+        GestorBD gestor = GestorBD.getInstance();
+        List<GustosResponse> gustos = new Gson().fromJson(reader, new TypeToken<List<GustosResponse>>() {
+        }.getType());
+        HttpSession session = request.getSession();
+        ClienteResponse cliente = (ClienteResponse) session.getAttribute("cliente");
+        gestor.ingresarGustos(gustos, cliente);
     }
-    
-    
-    
-    
-    
-    
+
+
 }
