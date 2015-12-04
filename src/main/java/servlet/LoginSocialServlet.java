@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
 name = "LoginSocialServlet",
-urlPatterns = "/login-social"
+urlPatterns = {"/login-social"}
 )
 
 

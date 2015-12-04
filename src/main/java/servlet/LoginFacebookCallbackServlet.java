@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
 name = "LoginFacebookCallbackServlet",
-urlPatterns = "/login-facebook-callback"
+urlPatterns = {"/login-facebook-callback"}
 )
 
 public class LoginFacebookCallbackServlet extends HttpServlet {
