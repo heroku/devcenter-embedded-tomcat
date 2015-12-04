@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(
 
 name = "ObtenerFoodTruckServlet",
-urlPatterns = {"usuario/foodTruck"}
+urlPatterns = {"/usuario/foodTruck"}
         
 )
 
