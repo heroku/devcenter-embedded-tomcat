@@ -3,6 +3,7 @@ package launch;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.WebResourceSet;
@@ -38,7 +39,9 @@ public class Main {
         File root = getRootFolder();
         System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
         Tomcat tomcat = new Tomcat();
-
+        Path tempPath = Files.createTempDirectory("tomcat-base-dir");
+        tomcat.setBaseDir(tempPath.toString());
+        
         //The port that we should run on can be set into an environment variable
         //Look for that variable and default to 8080 if it isn't there.
         String webPort = System.getenv("PORT");
