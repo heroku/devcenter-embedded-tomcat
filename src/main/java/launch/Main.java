@@ -24,6 +24,10 @@ public class Main {
         tomcat.setPort(Integer.valueOf(webPort));
 
         StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        
+        //Set execution independent of current thread context classloader (compatibility with exec:java mojo)
+        ctx.setParentClassLoader(Main.class.getClassLoader());
+        
         System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
 
         // Declare an alternative location for your "WEB-INF/classes" dir
