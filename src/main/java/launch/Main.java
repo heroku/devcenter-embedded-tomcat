@@ -6,6 +6,8 @@ import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
+import org.apache.tomcat.util.scan.Constants;
+import org.apache.tomcat.util.scan.StandardJarScanFilter;
 
 public class Main {
 
@@ -27,6 +29,13 @@ public class Main {
         
         //Set execution independent of current thread context classloader (compatibility with exec:java mojo)
         ctx.setParentClassLoader(Main.class.getClassLoader());
+        
+        //Disable TLD scanning by default
+        if (System.getProperty(Constants.SKIP_JARS_PROPERTY) == null && System.getProperty(Constants.SKIP_JARS_PROPERTY) == null) {
+            System.out.println("disabling TLD scanning");
+            StandardJarScanFilter jarScanFilter = (StandardJarScanFilter) ctx.getJarScanner().getJarScanFilter();
+            jarScanFilter.setTldSkip("*");
+        }
         
         System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
 
