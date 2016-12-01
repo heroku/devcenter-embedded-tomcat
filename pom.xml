@@ -42,6 +42,32 @@
         <artifactId>tomcat-jsp-api</artifactId>
         <version>${tomcat.version}</version>
     </dependency>
+      <!--JDBC Tomcat-->
+      <!--
+      <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-jdbc</artifactId>
+          <version>8.0.26</version>
+      </dependency>
+      -->
+      <!-- JDBC -->
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.36</version>
+      </dependency>
+      <dependency>
+          <groupId>com.google.code.gson</groupId>
+          <artifactId>gson</artifactId>
+          <version>2.3.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.facebook4j</groupId>
+          <artifactId>facebook4j-core</artifactId>
+          <version>[2.3,)</version>
+      </dependency>
+
+
   </dependencies>
   <build>
     <finalName>embeddedTomcatSample</finalName>
@@ -67,6 +93,14 @@
                     </goals>
                 </execution>
             </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>1.6</source>
+                <target>1.6</target>
+            </configuration>
         </plugin>
     </plugins>
   </build>
