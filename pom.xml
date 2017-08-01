@@ -8,8 +8,7 @@
   <name>embeddedTomcatSample Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tomcat.version>8.0.28</tomcat.version>
+    <tomcat.version>8.5.2</tomcat.version>
   </properties>
   <dependencies>
     <dependency>
