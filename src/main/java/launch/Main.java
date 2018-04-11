@@ -33,7 +33,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-
         File root = getRootFolder();
         System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
         Tomcat tomcat = new Tomcat();
@@ -56,7 +55,6 @@ public class Main {
         //Set execution independent of current thread context classloader (compatibility with exec:java mojo)
         ctx.setParentClassLoader(Main.class.getClassLoader());
         ctx.setAltDDName("src/main/webapp/META-INF/web.xml");
-
         System.out.println("configuring app with basedir: " + webContentFolder.getAbsolutePath());
 
         // Declare an alternative location for your "WEB-INF/classes" dir

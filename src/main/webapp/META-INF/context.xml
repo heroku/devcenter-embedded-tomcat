@@ -1,8 +1,3 @@
 <Context reloadable="true">
     <WatchedResource>src/main/</WatchedResource>
-    <Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource"
-               maxTotal="100" maxIdle="30" maxWaitMillis="10000"
-               username="root" password="root" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://192.168.99.100:3306/mydb"/>
-   
 </Context>
